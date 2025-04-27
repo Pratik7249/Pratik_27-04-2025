@@ -133,7 +133,7 @@ Setup your database inside app/db/database.py.
 Run the FastAPI server
 
 ``` bash
-uvicorn app.api.endpoints:app --reload
+uvicorn app.main:app --reload
 Trigger APIs from Postman / Curl / Swagger UI (localhost:8000/docs).
 ``` 
 ## 📈 Understanding the Calculation Logic
