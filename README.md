@@ -54,13 +54,13 @@ The generated CSV report contains:
 
 
 ## Column	Meaning
-store_id	Store UUID
-uptime_last_hour(min)	Uptime during last hour (minutes)
-downtime_last_hour(min)	Downtime during last hour (minutes)
-uptime_last_day(min)	Uptime during last 24 hours (minutes)
-downtime_last_day(min)	Downtime during last 24 hours (minutes)
-uptime_last_week(min)	Uptime during last 7 days (minutes)
-downtime_last_week(min)	Downtime during last 7 days (minutes)
+1. store_id	Store UUID.
+2. uptime_last_hour(min)	Uptime during last hour (minutes).
+3. downtime_last_hour(min)	Downtime during last hour (minutes).
+4. uptime_last_day(min)	Uptime during last 24 hours (minutes).
+5. downtime_last_day(min)	Downtime during last 24 hours (minutes).
+6. uptime_last_week(min)	Uptime during last 7 days (minutes).
+7. downtime_last_week(min)	Downtime during last 7 days (minutes).
 
 ## 🧠 Understanding the Calculation Logic
 Timestamps are converted from UTC to local timezone using the store's timezone_str.
