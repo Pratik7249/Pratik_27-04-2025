@@ -57,9 +57,8 @@ Assume America/Chicago if timezone missing
 ✅ Save report CSV into output/ folder
 
 📂 Project Structure
-bash
-Copy
-Edit
+``` bash
+
 app/
  ├── db/
  │     ├── database.py     # DB connection
@@ -71,6 +70,7 @@ app/
 output/
  └── store_uptime_report.csv # (Generated Report)
 README.md
+``` 
 
 ## 📊 API Specification
 1. /trigger_report
@@ -123,23 +123,17 @@ store_id	uptime_last_hour(min)	downtime_last_hour(min)	uptime_last_day(min)	down
 Clone the repo
 
 ``` bash
-Copy
-Edit
 git clone https://github.com/your-username/store-monitoring-assignment.git
 cd store-monitoring-assignment
 Install Python requirements
 ``` 
 ``` bash
-Copy
-Edit
 pip install -r requirements.txt
 Setup your database inside app/db/database.py.
 ``` 
 Run the FastAPI server
 
 ``` bash
-Copy
-Edit
 uvicorn app.api.endpoints:app --reload
 Trigger APIs from Postman / Curl / Swagger UI (localhost:8000/docs).
 ``` 
