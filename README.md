@@ -1,16 +1,5 @@
 ### 🏪 Store Monitoring - Take Home Assignment
 
-## 📜 Problem Overview
-Loop monitors several restaurants across the US and needs to generate uptime/downtime reports based on the restaurant's business hours and operational status.
-
-This project provides backend APIs that:
-
-Store operational data into a database
-
-Allow users to trigger a report generation
-
-Allow users to poll report status and download the result
-
 ## 🧩 Data Sources Provided
 Store Status CSV — store_id, timestamp_utc, status (active/inactive)
 
@@ -18,47 +7,8 @@ Business Hours CSV — store_id, dayOfWeek (0=Monday), start_time_local, end_tim
 
 Timezones CSV — store_id, timezone_str
 
-## 🛠️ Tech Stack
-Python 3.9+
-
-FastAPI (for API building)
-
-SQLAlchemy (ORM)
-
-Pandas (data processing)
-
-Pytz (timezone conversion)
-
-## 🚀 System Features
-✅ Ingest CSV data into database
-
-✅ Extrapolate store status based on limited polling
-
-✅ Calculate uptime and downtime:
-
-In last hour (minutes)
-
-In last day (hours)
-
-In last week (hours)
-
-✅ Handle missing data:
-
-Assume 24x7 open if no business hours provided
-
-Assume America/Chicago if timezone missing
-
-✅ Provide two APIs:
-
-/trigger_report
-
-/get_report
-
-✅ Save report CSV into output/ folder
-
-📂 Project Structure
-``` bash
-
+## Project Structure 
+``` 
 app/
  ├── db/
  │     ├── database.py       # Database connection setup
@@ -73,91 +23,75 @@ app/
 output/
  └── store_report.csv # (Generated uptime/downtime report)
 README.md                    # Project documentation
-``` 
+```
 
-## 📊 API Specification
-1. /trigger_report
-Method: POST
+## 🛠️ Tech Stack
+Python 3.9+
 
-Input: None
+FastAPI (for API building)
 
-Output: Returns a unique report_id
+SQLAlchemy (ORM)
 
-Behavior: Starts generating the report asynchronously.
+Pandas (data processing)
 
-Example Response:
+Pytz (timezone conversion)
 
-json
-{
-  "report_id": "8f5d9f2e-3a64-4b2c-92aa-3c934ff9c64d"
-}
+## ⚙️ How the System Works
+Database stores all CSV data.
 
-2. /get_report
-Method: GET
+API /trigger_report triggers the calculation process.
 
-Input: report_id
+API /get_report allows users to download the final report when ready.
 
-Output: Status or CSV download
+Uptime/Downtime is calculated only within business hours using timezone-aware logic.
 
-Behavior:
+Gaps between polling data are handled using the last known status for interpolation.
 
-If report is running: "status": "Running"
+Reports are dynamically generated based on current database data, not hardcoded.
 
-If report is ready: returns "status": "Complete" + download link.
+## 📈 Report Output Schema
+The generated CSV report contains:
 
-Example Response:
 
-json
-{
-  "status": "Complete",
-  "download_url": "/download/store_uptime_report.csv"
-}
+## Column	Meaning
+store_id	Store UUID
+uptime_last_hour(min)	Uptime during last hour (minutes)
+downtime_last_hour(min)	Downtime during last hour (minutes)
+uptime_last_day(min)	Uptime during last 24 hours (minutes)
+downtime_last_day(min)	Downtime during last 24 hours (minutes)
+uptime_last_week(min)	Uptime during last 7 days (minutes)
+downtime_last_week(min)	Downtime during last 7 days (minutes)
 
-## 📊 Sample CSV Output (Schema)
+## 🧠 Understanding the Calculation Logic
+Timestamps are converted from UTC to local timezone using the store's timezone_str.
 
-store_id	uptime_last_hour(min)	downtime_last_hour(min)	uptime_last_day(min)	downtime_last_day(min)	uptime_last_week(min)	downtime_last_week(min)
-7a242d0e-309c-4915-9755-e9019d69108d	0	0	0	1050	0	7350
-...	...	...	...	...	...	...
-## 🧪 How to Run Locally
-Clone the repo
+If timezone data is missing, default timezone used: America/Chicago.
 
-``` bash
-git clone https://github.com/your-username/store-monitoring-assignment.git
-cd store-monitoring-assignment
-Install Python requirements
-``` 
-``` bash
-pip install -r requirements.txt
-Setup your database inside app/db/database.py.
-``` 
-Run the FastAPI server
+If business hours are missing, default assumption: 24x7 open.
 
-``` bash
-uvicorn app.main:app --reload
-Trigger APIs from Postman / Curl / Swagger UI (localhost:8000/docs).
-``` 
-## 📈 Understanding the Calculation Logic
-Business hours and store status are aligned by converting timestamps into local timezone.
+Minute-level interpolation is applied between polling times.
 
-If a store has gaps between polling records, sane interpolation is done by assuming the last known status.
+Only timestamps within business hours are considered for uptime/downtime.
 
-Only periods within business hours are counted.
+No precomputation — live dynamic generation based on database data.
 
-Reports are dynamically generated from database, not hardcoded.
+## 🎥 Demo Video
+[Loom Video Link - Insert your recording link here 🔗]
 
-🎥 Demo Video
-📺 Loom Recording Link (replace with your final recording)
+## 📁 Sample Output
+[Google Drive Sample Report Link - Insert your CSV link here 📄]
 
-📁 Sample Report File
-📄 Sample CSV Output (Google Drive) (replace with your actual upload)
+## 💡 Ideas for Future Improvement
+Move report generation to background tasks using Celery or FastAPI BackgroundTasks.
 
-💡 Ideas for Improvement
-Move background report generation to Celery or FastAPI background tasks.
+Add Pagination if the number of stores exceeds 10,000+.
 
-Pagination support if stores >10k+.
+Implement User Authentication and API Token Security.
 
-Full user authentication and API token security.
+Add Trend Graphs (Matplotlib/Plotly) for visualization.
 
-Generate trend graphs using Matplotlib/Plotly.
+Package project using Docker for easier deployment.
 
-Use Docker to package and deploy easily.
+## 📜 Important Notes
+This project is designed for the assignment evaluation only.
+Only 10 stores are added in the output for fast evaluation.
