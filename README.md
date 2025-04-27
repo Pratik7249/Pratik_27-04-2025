@@ -76,10 +76,10 @@ Only timestamps within business hours are considered for uptime/downtime.
 No precomputation — live dynamic generation based on database data.
 
 ## 🎥 Demo Video
-[Loom Video Link - Insert your recording link here 🔗]
+[https://drive.google.com/file/d/1UcpwGvoJxRemAwlFjhwccPniMRhgIXm0/view?usp=sharing]
 
 ## 📁 Sample Output
-[Google Drive Sample Report Link - Insert your CSV link here 📄]
+[https://drive.google.com/file/d/1ywUk0ySv_iQKuMzC1UHKF8OFDI77seDh/view?usp=sharing]
 
 ## 💡 Ideas for Future Improvement
 Move report generation to background tasks using Celery or FastAPI BackgroundTasks.
