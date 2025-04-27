@@ -1,0 +1,5 @@
+{
+  "python.analysis.extraPaths": [
+    "./pratik_loop_takehome/app"
+  ]
+}
