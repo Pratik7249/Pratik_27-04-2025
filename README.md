@@ -61,15 +61,18 @@ Assume America/Chicago if timezone missing
 
 app/
  ├── db/
- │     ├── database.py     # DB connection
- │     └── models.py       # ORM models
- ├── scripts/
- │     └── report_logic.py  # Main report generation logic
+ │     ├── database.py       # Database connection setup
+ │     ├── models.py         # ORM models (StoreStatus, BusinessHours, Timezones)
+ │     └── seed_data.py      # Script to seed initial CSV data into the database
+ ├── utils/
+ │     └── report_logic.py   # Core logic for report generation
  ├── api/
- │     └── endpoints.py     # API routes (trigger, get report)
+ │     └── report.py         # API endpoints: trigger_report, get_report
+ ├── data/
+ │     └── sample.csv        # Sample input CSV files (status, business hours, timezone)
 output/
- └── store_uptime_report.csv # (Generated Report)
-README.md
+ └── store_report.csv # (Generated uptime/downtime report)
+README.md                    # Project documentation
 ``` 
 
 ## 📊 API Specification
@@ -85,8 +88,6 @@ Behavior: Starts generating the report asynchronously.
 Example Response:
 
 json
-Copy
-Edit
 {
   "report_id": "8f5d9f2e-3a64-4b2c-92aa-3c934ff9c64d"
 }
@@ -107,8 +108,6 @@ If report is ready: returns "status": "Complete" + download link.
 Example Response:
 
 json
-Copy
-Edit
 {
   "status": "Complete",
   "download_url": "/download/store_uptime_report.csv"
